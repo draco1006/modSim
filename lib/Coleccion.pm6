@@ -7,10 +7,10 @@ class lib::Coleccion {
 		self.bless
 	}
 	method add(int \numeroEstampa) {
-		when $!faltan.EXISTS-KEY(numeroEstampa) {
-			$!faltan{numeroEstampa} = False
+		when $!faltan.EXISTS-KEY(\numeroEstampa) {
+			$!faltan{\numeroEstampa} = False
 		}
-		$!sobran{numeroEstampa}++
+		$!sobran{\numeroEstampa}++
 	}
 
 	method remover(int \numeroEstampa) {
