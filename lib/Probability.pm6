@@ -4,28 +4,27 @@ module lib::Probability {
 		[*] 1 .. $n
 	};
 
-	sub poisson( $lambda, int $numeroEstampas, int $exclusion, int $truncada ) is export {
+	sub poisson( $lambda, int $numeroEstampas) is export {#falta volverla acumulativa
 		my $rango = 1 .. $numeroEstampas;
-		given $exclusion {
-			when 0 { #exlusion de 0
-				( $rango.map({ ( exp(-$lambda) * exp($_, $lambda) ) / ( fac($_) * ( 1 - exp(-$lambda) ) ) }) ).lazy;
-			}
-			when 1 { #truncada por la derecha
-				( $rango.map({ exp($_) / ( fac($_) * ( 0 .. $truncada ).map({
-					( exp($_, $lambda) ) / fac($_)
-				}).sum ) }) ).lazy;
-			}
-			when 2 { #truncada por la izquierda
-				( $rango.map({ exp($_) / ( fac($_) * ( $truncada .. $numeroEstampas ).map({
-					( exp($_, $lambda) ) / fac($_)
-				}).sum ) }) ).lazy;
-			}
+		my @poisson;
+		@poisson[0] = 0;
+		for 1..$numeroEstampas {
+			@poisson[$_] = ( exp($_) / ( fac($_) * ( 0 .. $numeroEstampas ).map({
+				( exp($_, $lambda) ) / fac($_)
+			}).sum ) )+ @poisson[$_-1];
 		}
+
 	}
 
-	sub geometrica( int $numeroEstampas ,int $probabilidadExito ) {
+	sub geometrica( int $numeroEstampas ,int $probabilidadExito ) {#falta volverla acumulativa
+		my @geometrica;
 		my $rango = 1 .. $numeroEstampas;
-		return ( $rango.map({ ( 1 - $probabilidadExito ) ** ( $_ - 1 ) * $probabilidadExito }) ).lazy
+		@geometrica[0] = 0;
+		for 1..^$numeroEstampas -> $i {
+			@geometrica[$i] = (( 1 - $probabilidadExito ) ** ( $i - 1 ) * $probabilidadExito) + @geometrica[$i-1];
+		}
+		@geometrica[$numeroEstampas] = 1;
+		return @geometrica
 	}
 	#TODO Falta establecer el truncamiento
 	#hacer enum para truncamiento
