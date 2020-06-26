@@ -1,5 +1,6 @@
 module lib::Probability {
 
+	#Estoy generando el número equivocado de estampas :(
 	my sub fac ( Int $n ) {
 		[*] 1 .. $n
 	};
@@ -33,8 +34,8 @@ module lib::Probability {
 		}
 		return @geometrica
 	}
-	#TODO Falta establecer el truncamiento
-	sub uniforme( int $numeroEstamaps ) is export { # Obvio funciona :v
+
+	sub uniforme( int $numeroEstamaps ) is export { # Obvio funciona :v, para uniforme se nescecita modificar gen rand
 		my @uniforme;
 		return ( 0 .. $numeroEstamaps ).map({ $_ / $numeroEstamaps });
 	}
