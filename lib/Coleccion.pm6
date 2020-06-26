@@ -2,7 +2,7 @@ class lib::Coleccion {
 	has SetHash $.faltan;
 	has BagHash $.sobran;
 
-	multi method new(int \numeroEstampillas) {
+	multi method new(int \numeroEstampillas) { #//TODO: n laminas
 		$.faltan .= new(1..numeroEstampillas);
 		self.bless
 	}

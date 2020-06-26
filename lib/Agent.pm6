@@ -32,6 +32,9 @@ class lib::Agent {
 		}
 	}
 
+	#`[TODO: i) Mediante una tabla y/o (ii) Mediante la especificación de una familia paramétrica
+	(p.e. Geométrica truncada, Uniforme, Binomial, Poisson truncada, etc.).]
+
 	method turno(int \numeroEstampas) {
 		my $rango = 1..numeroEstampas;
 		my $estampaSacada = $rango.roll;
