@@ -23,5 +23,10 @@ module lib::Probability {
 		}
 	}
 
+	sub geometrica( int $numeroEstampas ,int $probabilidadExito ) {
+		my $rango = 1 .. $numeroEstampas;
+		return ( $rango.map({ ( 1 - $probabilidadExito ) ** ( $_ - 1 ) * $probabilidadExito }) ).lazy
+	}
+
 
 }
