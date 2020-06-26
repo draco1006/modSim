@@ -27,6 +27,9 @@ module lib::Probability {
 		my $rango = 1 .. $numeroEstampas;
 		return ( $rango.map({ ( 1 - $probabilidadExito ) ** ( $_ - 1 ) * $probabilidadExito }) ).lazy
 	}
+	#TODO Falta establecer el truncamiento
+	#hacer enum para truncamiento
+	#Esta mal, esta la de densidad no la acumulada
 
 
 }
