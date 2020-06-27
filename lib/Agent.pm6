@@ -6,6 +6,7 @@ class lib::Agent {
 	has Coleccion $.chocolatinas is rw;
 	has $!identidad;
 	has Agent @!amigos;
+	has @.probabilityTable;
 
 	submethod TWEAK() {
 		$!identidad = $.contador++;
@@ -35,10 +36,13 @@ class lib::Agent {
 	#`[TODO: i) Mediante una tabla y/o (ii) Mediante la especificación de una familia paramétrica
 	(p.e. Geométrica truncada, Uniforme, Binomial, Poisson truncada, etc.).]
 
-	method turno(int \numeroEstampas) {
-		my $rango = 1..numeroEstampas;
-		my $estampaSacada = $rango.roll;
-		$!chocolatinas.add($estampaSacada);
+	method turno() {#modificar
+		my $aleatorio = rand();
+		for ^(@.probabilityTable.elems) -> $i {
+			if @.probabilityTable[$i] > $aleatorio {
+				$!chocolatinas.add($i)
+			}
+		}
 	}
 
 }
