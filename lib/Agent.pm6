@@ -40,9 +40,11 @@ class lib::Agent {
 		my $aleatorio = rand();
 		for ^(@.probabilityTable.elems) -> $i {
 			if @.probabilityTable[$i] > $aleatorio {
-				$!chocolatinas.add($i)
+				$!chocolatinas.add($i);
+				last
 			}
 		}
+		X::AdHoc.new.throw;
 	}
 
 }
